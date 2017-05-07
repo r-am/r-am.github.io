@@ -77,16 +77,14 @@
 </code></pre>
 					</figure>
 					<p><code>&lt;head&gt;</code>内に<code>if</code>でjsを入れて、記事を書く時に<code>true</code>するだけ。</p>
-					<p>
-						<figure class="code">
-							<figcaption>&lt;head&gt;</figcaption>
-							<pre><code class="language-html">{{ if eq .Params.toc true }}
+					<figure class="code">
+						<figcaption>&lt;head&gt;</figcaption>
+						<pre><code class="language-html">{{ if eq .Params.toc true }}
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;/js/toc.js&quot;&gt;&lt;/script&gt;
 {{ end }}
 </code></pre>
-						</figure>
-					</p>
+					</figure>
 					<figure class="code">
 						<figcaption>.md</figcaption>
 						<pre><code class="language-markdown">+++

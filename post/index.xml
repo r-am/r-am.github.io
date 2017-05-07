@@ -225,7 +225,7 @@ node-sass ./test/scss/$1.scss ./test/css/$1.css
 
 &lt;p&gt;&lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt;内に&lt;code&gt;if&lt;/code&gt;でjsを入れて、記事を書く時に&lt;code&gt;true&lt;/code&gt;するだけ。&lt;/p&gt;
 
-&lt;p&gt;&lt;figure class=&#34;code&#34;&gt;
+&lt;figure class=&#34;code&#34;&gt;
 &lt;figcaption&gt;&amp;lt;head&amp;gt;&lt;/figcaption&gt;
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;{{ if eq .Params.toc true }}
 &amp;lt;script src=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
@@ -234,7 +234,7 @@ node-sass ./test/scss/$1.scss ./test/css/$1.css
 &lt;/code&gt;&lt;/pre&gt;
 
 
-&lt;/figure&gt;&lt;/p&gt;
+&lt;/figure&gt;
 
 &lt;figure class=&#34;code&#34;&gt;
 &lt;figcaption&gt;.md&lt;/figcaption&gt;
