@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shortcodeのバグ - R-AM</title>
+	<meta name="description" content="めもちょう">
+	<meta name="keywords" content="html, css, javascript, r-am">
+	<link rel="stylesheet" href="/css/html5reset-1.6.1.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="stylesheet" href="/css/highlight.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/prism.js"></script>
+	<link rel="canonical" href="https://r-am.github.io/post/hugo-shortcode-bug.html">
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1 class="site-title"><a href="/">R-AM</a></h1>
+			<ul class="site-nav">
+				<li><a href="/page/about.html">About</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</header>
+		<main>
+			<article>
+				<header class="entry-header">
+					<h2 class="entry-title">Shortcodeのバグ</h2>
+					<ul class="entry-data">
+						<li class="entry-date"><time datetime="2017-05-07">2017/05/07</time></li>
+						<li class="entry-tag"><a href="/tags/hugo.html">hugo</a></li>
+					</ul>
+				</header>
+				<div class="entry-content">
+					<p>HugoのShortcodeを使ってるんだけど、Shortcodeが<code>&lt;p&gt;</code>で囲まれてしまうバグに遭遇した。ググってみても<a href="https://github.com/spf13/hugo/issues/1642" target="_blank">同じようにバグが発生してる人がいる</a>だけで修正される様子も無し。Issuesの投稿2015年…。</p>
+					<p><code>{{ .Inner }}</code>だけを書いたShortcodeを作って、途中の文章に使って回避した。</p>
+					<pre><code class="language-markdown">{{&#37; shortcode-A &#37;}} 33 lines, 674 characters. {{&#37; /shortcode-A &#37;}}
+
+text
+
+{{&#37; shortcode-A &#37;}} 6 lines, 175 characters. {{&#37; /shortcode-A &#37;}}</code><span class="is-user-select-none"> ← &lt;p&gt;で囲まれる</span></pre>
+					<p>下記に変更。</p>
+					<pre><code class="language-markdown">{{&#37; shortcode-A &#37;}} 33 lines, 674 characters. {{&#37; /shortcode-A &#37;}}
+
+<mark>{{&#37; inner &#37;}}</mark> text <mark>{{&#37; /inner &#37;}}</mark></code><span class="is-user-select-none"> ← &lt;p&gt;で囲まれる</span><code class="language-markdown">
+
+{{&#37; shortcode-A &#37;}} 6 lines, 175 characters. {{&#37; /shortcode-A &#37;}}</code></pre>
+					<figure class="code">
+						<figcaption>layouts/shortcodes/inner.html</figcaption>
+						<pre><code class="language-html">{{ .Inner }}</code></pre>
+					</figure>
+				</div>
+			</article>
+			<nav class="entry-nav">
+				<ul>
+					<li class="next none"><span>次の記事</span>-</li>
+					<li class="prev"><a href="/post/organize-blog.html"><span>前の記事</span>デザインの変更と記事の整理</a></li>
+				</ul>
+			</nav>
+		</main>
+		<footer>
+			<p class="copyright">&copy; R-AM</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -6,8 +6,41 @@
     <description>Recent content on R-AM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 07 May 2017 10:48:27 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 07 May 2017 16:25:58 +0900</lastBuildDate>
     <atom:link href="https://r-am.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Shortcodeのバグ</title>
+      <link>https://r-am.github.io/post/hugo-shortcode-bug.html</link>
+      <pubDate>Sun, 07 May 2017 16:25:58 +0900</pubDate>
+      
+      <guid>https://r-am.github.io/post/hugo-shortcode-bug.html</guid>
+      <description>&lt;p&gt;HugoのShortcodeを使ってるんだけど、Shortcodeが&lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt;で囲まれてしまうバグに遭遇した。ググってみても&lt;a href=&#34;https://github.com/spf13/hugo/issues/1642&#34; target=&#34;_blank&#34;&gt;同じようにバグが発生してる人がいる&lt;/a&gt;だけで修正される様子も無し。Issuesの投稿2015年…。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;{{ .Inner }}&lt;/code&gt;だけを書いたShortcodeを作って、途中の文章に使って回避した。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;#37; shortcode-A &amp;#37;}} 33 lines, 674 characters. {{&amp;#37; /shortcode-A &amp;#37;}}
+
+text
+
+{{&amp;#37; shortcode-A &amp;#37;}} 6 lines, 175 characters. {{&amp;#37; /shortcode-A &amp;#37;}}&lt;/code&gt;&lt;span class=&#34;is-user-select-none&#34;&gt; ← &amp;lt;p&amp;gt;で囲まれる&lt;/span&gt;&lt;/pre&gt;
+
+&lt;p&gt;下記に変更。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;#37; shortcode-A &amp;#37;}} 33 lines, 674 characters. {{&amp;#37; /shortcode-A &amp;#37;}}
+
+&lt;mark&gt;{{&amp;#37; inner &amp;#37;}}&lt;/mark&gt; text &lt;mark&gt;{{&amp;#37; /inner &amp;#37;}}&lt;/mark&gt;&lt;/code&gt;&lt;span class=&#34;is-user-select-none&#34;&gt; ← &amp;lt;p&amp;gt;で囲まれる&lt;/span&gt;&lt;code class=&#34;language-markdown&#34;&gt;
+
+{{&amp;#37; shortcode-A &amp;#37;}} 6 lines, 175 characters. {{&amp;#37; /shortcode-A &amp;#37;}}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;layouts/shortcodes/inner.html&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;{{ .Inner }}&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;
+</description>
+    </item>
     
     <item>
       <title>デザインの変更と記事の整理</title>
