@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQueryで目次を作る - R-AM</title>
+	<meta name="description" content="めもちょう">
+	<meta name="keywords" content="html, css, javascript, r-am">
+	<link rel="stylesheet" href="/css/html5reset-1.6.1.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="stylesheet" href="/css/highlight.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/prism.js"></script>
+	<link rel="canonical" href="https://r-am.github.io/post/jquery-toc.html">
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1 class="site-title"><a href="/">R-AM</a></h1>
+			<ul class="site-nav">
+				<li><a href="/page/about.html">About</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</header>
+		<main>
+			<article>
+				<header class="entry-header">
+					<h2 class="entry-title">jQueryで目次を作る</h2>
+					<ul class="entry-data">
+						<li class="entry-date"><time datetime="2017-04-28">2017/04/28</time></li>
+						<li class="entry-tag"><a href="/tags/js.html">js</a></li>
+					</ul>
+				</header>
+				<div class="entry-content">
+					<p>Hugoにも目次機能はあるけれど、</p>
+					<ul>
+						<li><code>&lt;ul&gt;</code>ではなく<code>&lt;ol&gt;</code>で作りたい</li>
+						<li>idは日本語じゃなくて連番にしたい</li>
+						<li>最初の見出しの上に表示したい</li>
+						<li>一番若い見出しが<code>&lt;h1&gt;</code>前提なのが嫌</li>
+					</ul>
+					<p>と個人的にモヤモヤするのでjQueryで作った。</p>
+					<figure class="code">
+						<figcaption>toc.js</figcaption>
+						<pre><code class="language-javascript">$(function() {
+	o = '\n&lt;ol&gt;';
+	h = $('h1, h2, h3, h4, h5, h6', '.entry-content');
+
+	h.first().before('&lt;nav class=&quot;toc js-toc&quot;&gt;&lt;/nav&gt;');
+
+	function lv(x, y, ol) {
+		num = x.replace(/h/i,'') - y.replace(/h/i,'');
+		for(j=0; j &lt; num; j++) {
+			o += '\n' + ol;
+		};
+		return o;
+	}
+
+	h.each(function(i) {
+		this.id = 'anc' + ('0' + (i + 1)).slice(-2);
+
+		now = $(this).get(0).tagName;
+		prev = h.eq( i - 1 ).get(0).tagName;
+
+		if(i == 0 || now &gt; prev) {
+			lv(now, prev, '&lt;ol&gt;');
+		} else if(now &lt; prev) {
+			lv(prev, now, '&lt;/ol&gt;');
+		}
+		o += '\n&lt;li&gt;&lt;a href=&quot;#' + this.id + '&quot;&gt;' + this.innerHTML + '&lt;/a&gt;&lt;/li&gt;';
+	});
+	o += '\n&lt;/ol&gt;';
+
+	$('.js-toc').html(o);
+});
+</code></pre>
+					</figure>
+					<p><code>&lt;head&gt;</code>内に<code>if</code>でjsを入れて、記事を書く時に<code>true</code>するだけ。</p>
+					<p>
+						<figure class="code">
+							<figcaption>&lt;head&gt;</figcaption>
+							<pre><code class="language-html">{{ if eq .Params.toc true }}
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/toc.js&quot;&gt;&lt;/script&gt;
+{{ end }}
+</code></pre>
+						</figure>
+					</p>
+					<figure class="code">
+						<figcaption>.md</figcaption>
+						<pre><code class="language-markdown">+++
+toc = true
++++
+</code></pre>
+					</figure>
+					<h3 id="jsfiddle">JSFiddle</h3>
+					<script async src="//jsfiddle.net/R_AM/94k1dwj1/embed/js,html,result/"></script>
+				</div>
+			</article>
+			<nav class="entry-nav">
+				<ul>
+					<li class="next"><a href="/post/win-npm-scripts-run-sh.html"><span>次の記事</span>npm-scriptsで.sh</a></li>
+					<li class="prev"><a href="/post/font-family-size-line-height-pattern.html"><span>前の記事</span>本文の書体、文字の大きさ、行間</a></li>
+				</ul>
+			</nav>
+		</main>
+		<footer>
+			<p class="copyright">&copy; R-AM</p>
+		</footer>
+	</div>
+</body>
+</html>

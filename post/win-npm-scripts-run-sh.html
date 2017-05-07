@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>npm-scriptsで.sh - R-AM</title>
+	<meta name="description" content="めもちょう">
+	<meta name="keywords" content="html, css, javascript, r-am">
+	<link rel="stylesheet" href="/css/html5reset-1.6.1.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="stylesheet" href="/css/highlight.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/prism.js"></script>
+	<link rel="canonical" href="https://r-am.github.io/post/win-npm-scripts-run-sh.html">
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1 class="site-title"><a href="/">R-AM</a></h1>
+			<ul class="site-nav">
+				<li><a href="/page/about.html">About</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</header>
+		<main>
+			<article>
+				<header class="entry-header">
+					<h2 class="entry-title">npm-scriptsで.sh</h2>
+					<ul class="entry-data">
+						<li class="entry-date"><time datetime="2017-05-01">2017/05/01</time></li>
+						<li class="entry-tag"><a href="/tags/npm.html">npm</a></li>
+					</ul>
+				</header>
+				<div class="entry-content">
+					<p><a href="http://qiita.com/monpy/items/be5fa8a900728aaab5ba" target="_blank">npm script を試す (サンプル付き忘備録) - Qiita</a>を見て「どんなもんかやってみよ」と試してみたけど、エラーが出て走ってくれない。</p>
+					<figure class="code">
+						<figcaption>ディレクトリ構成</figcaption>
+						<pre><code>├─bin
+|  └─build-sass.sh
+├─node_modules
+├─package.json
+└─test
+    ├─css
+    └─scss
+        └─style.scss
+</code></pre>
+					</figure>
+					<figure class="code">
+						<figcaption>package.json</figcaption>
+						<pre><code class="language-json">{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    <mark>"sass": "bin/build-sass.sh"</mark>
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^4.5.2"
+  }
+}</code></pre>
+					</figure>
+					<figure class="code">
+						<figcaption>build-sass.sh</figcaption>
+						<pre><code class="language-bash">#!/bin/bash
+node-sass ./test/scss/$1.scss ./test/css/$1.css
+</code></pre>
+					</figure>
+					<figure class="code">
+						<figcaption>実行したいコマンド</figcaption>
+						<pre><code class="language-bash"><span class="is-user-select-none">$ </span>npm run sass -- style</code></pre>
+					</figure>
+					<figure class="code">
+						<figcaption>エラー内容</figcaption>
+						<pre><samp>'bin' は、内部コマンドまたは外部コマンド、
+操作可能なプログラムまたはバッチ ファイルとして認識されていません。</samp></pre>
+					</figure>
+					<p>shに実行権限が渡ってないのかな？と思って<code><span class="is-user-select-none">$ </span>ls -l bin/build-sass.sh</code>で実行権限を確認してみたけど、ちゃんと<code>x</code>付いてた。</p>
+					<h3 id="解決策">解決策</h3>
+					<p><a href="http://stackoverflow.com/questions/23243353/how-to-set-shell-for-npm-run-scripts-in-windows" target="_blank">how to set shell for npm run-scripts in windows - Stack Overflow</a>の回答を見ると<code>bash</code>が付いていたので、真似して<code>bash</code>を付けてみたら動きました。</p>
+					<figure class="code">
+						<figcaption>package.json</figcaption>
+						<pre><code class="language-json">"sass": "<mark>bash</mark> bin/build-sass.sh"</code></pre>
+					</figure>
+				</div>
+			</article>
+			<nav class="entry-nav">
+				<ul>
+					<li class="next"><a href="/post/sublime-text-build-pug-scss.html"><span>次の記事</span>SublimeText3で.pugと.scssをビルド</a></li>
+					<li class="prev"><a href="/post/jquery-toc.html"><span>前の記事</span>jQueryで目次を作る</a></li>
+				</ul>
+			</nav>
+		</main>
+		<footer>
+			<p class="copyright">&copy; R-AM</p>
+		</footer>
+	</div>
+</body>
+</html>

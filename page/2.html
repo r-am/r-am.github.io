@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta name="generator" content="Hugo 0.19" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>R-AM</title>
+	<meta name="description" content="めもちょう">
+	<meta name="keywords" content="html, css, javascript, r-am">
+	<link rel="stylesheet" href="/css/html5reset-1.6.1.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="canonical" href="https://r-am.github.io/">
+	<link rel="alternate" href="https://r-am.github.io/index.xml" type="application/rss+xml" title="R-AM">
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1 class="site-title"><a href="/">R-AM</a></h1>
+			<ul class="site-nav">
+				<li><a href="/page/about.html">About</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</header>
+		<main class="list">
+			<article>
+				<header class="entry-header">
+					<h2 class="entry-title"><a href="/post/hugo-category-tag-list.html">カテゴリーとタグの一覧</a></h2>
+					<ul class="entry-data">
+						<li class="entry-date"><time datetime="2017-04-24">2017/04/24</time></li>
+						<li class="entry-tag"><a href="/tags/hugo.html">hugo</a></li>
+					</ul>
+				</header>
+				<div class="entry-content">
+					<p>サイドバーなどにカテゴリーとタグの一覧を表示させたい時は.Site.Taxonomiesから拾ってくる。 カテゴリー {{ if lt 0 (len .Site.Taxonomies.categories) }} &lt;ul&gt; {{ range .Site.Taxonomies.categories.ByCount }} &lt;li&gt;&lt;a</p>
+				</div>
+			</article>
+			<article>
+				<header class="entry-header">
+					<h2 class="entry-title"><a href="/post/config-toml.html">config.toml</a></h2>
+					<ul class="entry-data">
+						<li class="entry-date"><time datetime="2017-04-21">2017/04/21</time></li>
+						<li class="entry-tag"><a href="/tags/hugo.html">hugo</a></li>
+					</ul>
+				</header>
+				<div class="entry-content">
+					<p>設定しておいた方が良いと思われるもの。 title = &quot;site_title&quot; languageCode = &quot;ja&quot; # hostname (and path) to the root, e.g. http://spf13.com/ # ホスト名（およびパス）をルートに設定します。 http://spf13.com/ baseURL = &quot;http://mysite_url/&quot; # Missing translations will default to this content language</p>
+				</div>
+			</article>
+			<nav class="list-nav">
+				<ul>
+					<li class="prev"><a href="/">Prev</a></li>
+					<li><a href="/">1</a></li>
+					<li><span class="current">2</span></li>
+				</ul>
+			</nav>
+		</main>
+		<footer>
+			<p class="copyright">&copy; R-AM</p>
+		</footer>
+	</div>
+</body>
+</html>

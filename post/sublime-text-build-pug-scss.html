@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SublimeText3で.pugと.scssをビルド - R-AM</title>
+	<meta name="description" content="めもちょう">
+	<meta name="keywords" content="html, css, javascript, r-am">
+	<link rel="stylesheet" href="/css/html5reset-1.6.1.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="stylesheet" href="/css/highlight.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/prism.js"></script>
+	<link rel="canonical" href="https://r-am.github.io/post/sublime-text-build-pug-scss.html">
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1 class="site-title"><a href="/">R-AM</a></h1>
+			<ul class="site-nav">
+				<li><a href="/page/about.html">About</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</header>
+		<main>
+			<article>
+				<header class="entry-header">
+					<h2 class="entry-title">SublimeText3で.pugと.scssをビルド</h2>
+					<ul class="entry-data">
+						<li class="entry-date"><time datetime="2017-05-02">2017/05/02</time></li>
+						<li class="entry-tag"><a href="/tags/sublimetext.html">sublimetext</a>, <a href="/tags/pug.html">pug</a>, <a href="/tags/scss.html">scss</a></li>
+					</ul>
+				</header>
+				<div class="entry-content">
+					<p>gulpやらnpm-scriptsやらを使っていたけど、そもそも私は普段、PugをHTMLに変換、SCSSをCSSに変換くらいしかしない。使ってて良かったー！と思うのは、Hugoから出力されたHTMLのコードを整形をする時。複数のファイルをコマンドぽちーで一気にやってくれるのは本当助かる。それ以外で複数のファイルに一気に何かするってことはそうそうないので、いちいち面倒臭いなーと。</p>
+					<p>前の記事の問題でググっている最中、AtomやVimでコンパイル云々の文字が目に入り、そういえばSublimeText3のパッケージにもコンパイルするやつあったような…と思って探してみるとやっぱりあった。そうだよねそうだよね、ただ書いてコンパイルするためだけに毎回黒画面立ち上げるってやっぱり非効率だったよね。すぐに導入しました。</p>
+					<hr />
+					<h3 id="1-必要なpackageのインストール">1. 必要なPackageのインストール</h3>
+					<p>SublimeText3にPackageControlから下記の3つを入れる。</p>
+					<ul>
+						<li><a href="https://packagecontrol.io/packages/Pug" target="_blank">Pug - Packages - Package Control</a></li>
+						<li><a href="https://packagecontrol.io/packages/SCSS" target="_blank">SCSS - Packages - Package Control</a></li>
+						<li><a href="https://packagecontrol.io/packages/SublimeOnSaveBuild" target="_blank">Sublime​On​Save​Build - Packages - Package Control</a></li>
+					</ul>
+					<h3 id="2-pugの設定">2. Pugの設定</h3>
+					<p>基本設定 &gt; PackageSettings &gt; SublimeOnSaveBuild &gt; Settings-User を開き、<code>pug</code>を追記し、<code>css</code>と<code>js</code>は特にビルドすることないので消しておく。</p>
+					<pre><code class="language-json">{
+    "filename_filter": "\\.(sass|less|scss|<mark>pug</mark>)$",
+    "build_on_save": 1
+}</code></pre>
+					<p>適当な<code>.pug</code>ファイルを開き、ツール &gt; ビルドシステム &gt; Pug を選択。何か書いて保存して、同じ場所に<code>.html</code>が出てくれば完了。</p>
+					<h3 id="3-scssの設定">3. SCSSの設定</h3>
+					<p>ツール &gt; ビルドシステム &gt; ビルドシステム追加 を開き、<code>SASS.sublime-build</code>というファイル名で下記を保存。</p>
+					<pre><code class="language-json">{
+
+	&quot;cmd&quot;: [&quot;sass&quot;, &quot;--update&quot;, &quot;$file:${file_path}/${file_base_name}.css&quot;, &quot;--stop-on-error&quot;, &quot;--no-cache&quot;, &quot;--sourcemap=none&quot;],
+	&quot;selector&quot;: &quot;source.sass, source.scss&quot;,
+	&quot;line_regex&quot;: &quot;Line ([0-9]+):&quot;,
+
+	&quot;osx&quot;:
+	{
+		&quot;path&quot;: &quot;/usr/local/bin:$PATH&quot;
+	},
+
+	&quot;windows&quot;:
+	{
+		&quot;shell&quot;: &quot;true&quot;
+	}
+
+}
+</code></pre>
+					<p>適当な<code>.scss</code>ファイルを開き、ツール &gt; ビルドシステム &gt; SASS を選択。何か書いて保存して、同じ場所に<code>.css</code>が出てくれば完了。</p>
+				</div>
+			</article>
+			<nav class="entry-nav">
+				<ul>
+					<li class="next"><a href="/post/organize-blog.html"><span>次の記事</span>デザインの変更と記事の整理</a></li>
+					<li class="prev"><a href="/post/win-npm-scripts-run-sh.html"><span>前の記事</span>npm-scriptsで.sh</a></li>
+				</ul>
+			</nav>
+		</main>
+		<footer>
+			<p class="copyright">&copy; R-AM</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://r-am.github.io/post/organize-blog.html</loc>
+    <lastmod>2017-05-07T10:48:27+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/post/sublime-text-build-pug-scss.html</loc>
+    <lastmod>2017-05-02T05:44:04+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/post/win-npm-scripts-run-sh.html</loc>
+    <lastmod>2017-05-01T19:39:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/post/jquery-toc.html</loc>
+    <lastmod>2017-04-28T17:15:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/post/font-family-size-line-height-pattern.html</loc>
+    <lastmod>2017-04-24T14:22:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/post/hugo-category-tag-list.html</loc>
+    <lastmod>2017-04-24T13:01:43+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/post/config-toml.html</loc>
+    <lastmod>2017-04-21T02:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/page/about.html</loc>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags/blog.html</loc>
+    <lastmod>2017-05-07T10:48:27+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags/css.html</loc>
+    <lastmod>2017-04-24T14:22:29+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags/hugo.html</loc>
+    <lastmod>2017-04-24T13:01:43+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags/js.html</loc>
+    <lastmod>2017-04-28T17:15:29+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags/npm.html</loc>
+    <lastmod>2017-05-01T19:39:11+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/post.html</loc>
+    <lastmod>2017-05-07T10:48:27+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags/pug.html</loc>
+    <lastmod>2017-05-02T05:44:04+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/</loc>
+    <lastmod>2017-05-07T10:48:27+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags/scss.html</loc>
+    <lastmod>2017-05-02T05:44:04+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags/sublimetext.html</loc>
+    <lastmod>2017-05-02T05:44:04+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://r-am.github.io/tags.html</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

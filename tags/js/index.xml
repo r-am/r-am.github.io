@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Js on R-AM</title>
+    <link>https://r-am.github.io/tags/js.xml</link>
+    <description>Recent content in Js on R-AM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <atom:link href="https://r-am.github.io/tags/js.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>jQueryで目次を作る</title>
+      <link>https://r-am.github.io/post/jquery-toc.html</link>
+      <pubDate>Fri, 28 Apr 2017 17:15:29 +0900</pubDate>
+      
+      <guid>https://r-am.github.io/post/jquery-toc.html</guid>
+      <description>
+
+&lt;p&gt;Hugoにも目次機能はあるけれど、&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;ul&amp;gt;&lt;/code&gt;ではなく&lt;code&gt;&amp;lt;ol&amp;gt;&lt;/code&gt;で作りたい&lt;/li&gt;
+&lt;li&gt;idは日本語じゃなくて連番にしたい&lt;/li&gt;
+&lt;li&gt;最初の見出しの上に表示したい&lt;/li&gt;
+&lt;li&gt;一番若い見出しが&lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt;前提なのが嫌&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;と個人的にモヤモヤするのでjQueryで作った。&lt;/p&gt;
+
+&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;toc.js&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;$(function() {
+	o = &#39;\n&amp;lt;ol&amp;gt;&#39;;
+	h = $(&#39;h1, h2, h3, h4, h5, h6&#39;, &#39;.entry-content&#39;);
+
+	h.first().before(&#39;&amp;lt;nav class=&amp;quot;toc js-toc&amp;quot;&amp;gt;&amp;lt;/nav&amp;gt;&#39;);
+
+	function lv(x, y, ol) {
+		num = x.replace(/h/i,&#39;&#39;) - y.replace(/h/i,&#39;&#39;);
+		for(j=0; j &amp;lt; num; j++) {
+			o += &#39;\n&#39; + ol;
+		};
+		return o;
+	}
+
+	h.each(function(i) {
+		this.id = &#39;anc&#39; + (&#39;0&#39; + (i + 1)).slice(-2);
+
+		now = $(this).get(0).tagName;
+		prev = h.eq( i - 1 ).get(0).tagName;
+
+		if(i == 0 || now &amp;gt; prev) {
+			lv(now, prev, &#39;&amp;lt;ol&amp;gt;&#39;);
+		} else if(now &amp;lt; prev) {
+			lv(prev, now, &#39;&amp;lt;/ol&amp;gt;&#39;);
+		}
+		o += &#39;\n&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&#39; + this.id + &#39;&amp;quot;&amp;gt;&#39; + this.innerHTML + &#39;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&#39;;
+	});
+	o += &#39;\n&amp;lt;/ol&amp;gt;&#39;;
+
+	$(&#39;.js-toc&#39;).html(o);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt;内に&lt;code&gt;if&lt;/code&gt;でjsを入れて、記事を書く時に&lt;code&gt;true&lt;/code&gt;するだけ。&lt;/p&gt;
+
+&lt;p&gt;&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;&amp;lt;head&amp;gt;&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;{{ if eq .Params.toc true }}
+&amp;lt;script src=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;/js/toc.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+{{ end }}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;&lt;/p&gt;
+
+&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;.md&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;+++
+toc = true
++++
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;jsfiddle&#34;&gt;JSFiddle&lt;/h3&gt;
+
+&lt;script async src=&#34;//jsfiddle.net/R_AM/94k1dwj1/embed/js,html,result/&#34;&gt;&lt;/script&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

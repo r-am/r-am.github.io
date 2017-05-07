@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sublimetext on R-AM</title>
+    <link>https://r-am.github.io/tags/sublimetext.xml</link>
+    <description>Recent content in Sublimetext on R-AM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <atom:link href="https://r-am.github.io/tags/sublimetext.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SublimeText3で.pugと.scssをビルド</title>
+      <link>https://r-am.github.io/post/sublime-text-build-pug-scss.html</link>
+      <pubDate>Tue, 02 May 2017 05:44:04 +0900</pubDate>
+      
+      <guid>https://r-am.github.io/post/sublime-text-build-pug-scss.html</guid>
+      <description>
+
+&lt;p&gt;gulpやらnpm-scriptsやらを使っていたけど、そもそも私は普段、PugをHTMLに変換、SCSSをCSSに変換くらいしかしない。使ってて良かったー！と思うのは、Hugoから出力されたHTMLのコードを整形をする時。複数のファイルをコマンドぽちーで一気にやってくれるのは本当助かる。それ以外で複数のファイルに一気に何かするってことはそうそうないので、いちいち面倒臭いなーと。&lt;/p&gt;
+
+&lt;p&gt;前の記事の問題でググっている最中、AtomやVimでコンパイル云々の文字が目に入り、そういえばSublimeText3のパッケージにもコンパイルするやつあったような…と思って探してみるとやっぱりあった。そうだよねそうだよね、ただ書いてコンパイルするためだけに毎回黒画面立ち上げるってやっぱり非効率だったよね。すぐに導入しました。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;1-必要なpackageのインストール&#34;&gt;1. 必要なPackageのインストール&lt;/h3&gt;
+
+&lt;p&gt;SublimeText3にPackageControlから下記の3つを入れる。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/Pug&#34; target=&#34;_blank&#34;&gt;Pug - Packages - Package Control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/SCSS&#34; target=&#34;_blank&#34;&gt;SCSS - Packages - Package Control&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/SublimeOnSaveBuild&#34; target=&#34;_blank&#34;&gt;Sublime​On​Save​Build - Packages - Package Control&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;2-pugの設定&#34;&gt;2. Pugの設定&lt;/h3&gt;
+
+&lt;p&gt;基本設定 &amp;gt; PackageSettings &amp;gt; SublimeOnSaveBuild &amp;gt; Settings-User を開き、&lt;code&gt;pug&lt;/code&gt;を追記し、&lt;code&gt;css&lt;/code&gt;と&lt;code&gt;js&lt;/code&gt;は特にビルドすることないので消しておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &#34;filename_filter&#34;: &#34;\\.(sass|less|scss|&lt;mark&gt;pug&lt;/mark&gt;)$&#34;,
+    &#34;build_on_save&#34;: 1
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;適当な&lt;code&gt;.pug&lt;/code&gt;ファイルを開き、ツール &amp;gt; ビルドシステム &amp;gt; Pug を選択。何か書いて保存して、同じ場所に&lt;code&gt;.html&lt;/code&gt;が出てくれば完了。&lt;/p&gt;
+
+&lt;h3 id=&#34;3-scssの設定&#34;&gt;3. SCSSの設定&lt;/h3&gt;
+
+&lt;p&gt;ツール &amp;gt; ビルドシステム &amp;gt; ビルドシステム追加 を開き、&lt;code&gt;SASS.sublime-build&lt;/code&gt;というファイル名で下記を保存。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+
+	&amp;quot;cmd&amp;quot;: [&amp;quot;sass&amp;quot;, &amp;quot;--update&amp;quot;, &amp;quot;$file:${file_path}/${file_base_name}.css&amp;quot;, &amp;quot;--stop-on-error&amp;quot;, &amp;quot;--no-cache&amp;quot;, &amp;quot;--sourcemap=none&amp;quot;],
+	&amp;quot;selector&amp;quot;: &amp;quot;source.sass, source.scss&amp;quot;,
+	&amp;quot;line_regex&amp;quot;: &amp;quot;Line ([0-9]+):&amp;quot;,
+
+	&amp;quot;osx&amp;quot;:
+	{
+		&amp;quot;path&amp;quot;: &amp;quot;/usr/local/bin:$PATH&amp;quot;
+	},
+
+	&amp;quot;windows&amp;quot;:
+	{
+		&amp;quot;shell&amp;quot;: &amp;quot;true&amp;quot;
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;適当な&lt;code&gt;.scss&lt;/code&gt;ファイルを開き、ツール &amp;gt; ビルドシステム &amp;gt; SASS を選択。何か書いて保存して、同じ場所に&lt;code&gt;.css&lt;/code&gt;が出てくれば完了。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

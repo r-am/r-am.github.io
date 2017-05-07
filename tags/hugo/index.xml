@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on R-AM</title>
+    <link>https://r-am.github.io/tags/hugo.xml</link>
+    <description>Recent content in Hugo on R-AM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <atom:link href="https://r-am.github.io/tags/hugo.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>カテゴリーとタグの一覧</title>
+      <link>https://r-am.github.io/post/hugo-category-tag-list.html</link>
+      <pubDate>Mon, 24 Apr 2017 13:01:43 +0900</pubDate>
+      
+      <guid>https://r-am.github.io/post/hugo-category-tag-list.html</guid>
+      <description>
+
+&lt;p&gt;サイドバーなどにカテゴリーとタグの一覧を表示させたい時は&lt;wbr&gt;&lt;code&gt;.Site.Taxonomies&lt;/code&gt;から拾ってくる。&lt;/p&gt;
+
+&lt;h3 id=&#34;カテゴリー&#34;&gt;カテゴリー&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;{{ if lt 0 (len .Site.Taxonomies.categories) }}
+&amp;lt;ul&amp;gt;
+	{{ range .Site.Taxonomies.categories.ByCount }}
+	&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;{{ $.Site.BaseURL | relURL }}categories/{{ .Name | urlize }}&amp;quot;&amp;gt;{{ .Name }}&amp;lt;span&amp;gt;({{ .Count }})&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+	{{ end }}
+&amp;lt;/ul&amp;gt;
+{{ end }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;タグ&#34;&gt;タグ&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;{{ if lt 0 (len .Site.Taxonomies.tags) }}
+&amp;lt;ul&amp;gt;
+	{{ range .Site.Taxonomies.tags.ByCount }}
+	&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;{{ $.Site.BaseURL | relURL }}tags/{{ .Name | urlize }}&amp;quot;&amp;gt;{{ .Name }}&amp;lt;span&amp;gt;({{ .Count }})&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+	{{ end }}
+&amp;lt;/ul&amp;gt;
+{{ end }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;全部&#34;&gt;全部&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;{{ range $key, $value := .Site.Taxonomies }}
+{{ if lt 0 (len $value.ByCount) }}
+&amp;lt;ul&amp;gt;
+	&amp;lt;li&amp;gt;{{ $key }}
+		&amp;lt;ul&amp;gt;
+			{{ range $value.ByCount }}
+			&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;{{ $.Site.BaseURL | relURL }}{{ $key }}/{{ .Name | urlize }}&amp;quot;&amp;gt;{{ .Name }}&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+			{{ end }}
+		&amp;lt;/ul&amp;gt;
+	&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+{{ end }}
+{{ end }}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>config.toml</title>
+      <link>https://r-am.github.io/post/config-toml.html</link>
+      <pubDate>Fri, 21 Apr 2017 02:00:00 +0900</pubDate>
+      
+      <guid>https://r-am.github.io/post/config-toml.html</guid>
+      <description>&lt;p&gt;設定しておいた方が良いと思われるもの。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;title = &amp;quot;site_title&amp;quot;
+languageCode = &amp;quot;ja&amp;quot;
+
+# hostname (and path) to the root, e.g. http://spf13.com/
+# ホスト名（およびパス）をルートに設定します。 http://spf13.com/
+baseURL = &amp;quot;http://mysite_url/&amp;quot;
+
+# Missing translations will default to this content language
+# 欠落している翻訳は、デフォルトでこのコンテンツ言語になります
+DefaultContentLanguage = &amp;quot;ja&amp;quot;
+
+# true: auto-detect Chinese/Japanese/Korean Languages in the content. (.Summary and .WordCount can work properly in CJKLanguage)
+# true: コンテンツ内の中国語/日本語/韓国語を自動検出します。 （.Summaryと.WordCountはCJKLanguageで正しく動作します）
+HasCJKLanguage = true
+
+[blackfriday]
+	# false: disables smart punctuation substitutions including smart quotes, smart dashes, smart fractions, etc.
+	# false: スマート引用符、スマートダッシュ、スマート画分などを含めた場合、スマート句読点の置換を無効にします
+	smartypants = false
+
+	# true: opens external links in a new window or tab.
+	# true: 外部リンクを新しいウィンドウまたはタブで開きます
+	hrefTargetBlank = true
+
+[params]
+	author = &amp;quot;author_name&amp;quot;
+	description = &amp;quot;site_description&amp;quot;
+	keywords = &amp;quot;meta_keyword&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
