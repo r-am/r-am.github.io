@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://r-am.github.io/post/bye-jquery-toc.html</loc>
+    <lastmod>2017-05-08T19:21:09+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://r-am.github.io/post/hugo-shortcode-bug.html</loc>
     <lastmod>2017-05-07T16:25:58+09:00</lastmod>
   </url>
@@ -65,7 +70,7 @@
   
   <url>
     <loc>https://r-am.github.io/tags/js.html</loc>
-    <lastmod>2017-04-28T17:15:29+09:00</lastmod>
+    <lastmod>2017-05-08T19:21:09+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -77,7 +82,7 @@
   
   <url>
     <loc>https://r-am.github.io/post.html</loc>
-    <lastmod>2017-05-07T16:25:58+09:00</lastmod>
+    <lastmod>2017-05-08T19:21:09+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -89,7 +94,7 @@
   
   <url>
     <loc>https://r-am.github.io/</loc>
-    <lastmod>2017-05-07T16:25:58+09:00</lastmod>
+    <lastmod>2017-05-08T19:21:09+09:00</lastmod>
     <priority>0</priority>
   </url>
   

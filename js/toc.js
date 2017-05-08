@@ -1,31 +1,41 @@
-$(function() {
-	o = '\n<ol>';
-	h = $('h1, h2, h3, h4, h5, h6', '.entry-content');
+window.onload = function() {
 
-	h.first().before('<nav class="toc js-toc"></nav>');
-
-	function lv(x, y, ol) {
-		num = x.replace(/h/i,'') - y.replace(/h/i,'');
-		for(j=0; j < num; j++) {
-			o += '\n' + ol;
+	function lv(a, b, c) {
+		var d = a - b;
+		for (e = 0; e < d; e++) {
+			o += c;
 		};
 		return o;
 	}
 
-	h.each(function(i) {
-		this.id = 'anc' + ('0' + (i + 1)).slice(-2);
+	var ec = document.getElementsByClassName('entry-content')[0],
+		h = ec.querySelectorAll('h1, h2, h3, h4, h5, h6'),
+		o = '<ol>\n',
+		nav = document.createElement('nav');
 
-		now = $(this).get(0).tagName;
-		prev = h.eq( i - 1 ).get(0).tagName;
+	nav.className = 'toc';
+	ec.insertBefore(nav, ec.firstChild);
 
-		if(i == 0 || now > prev) {
-			lv(now, prev, '<ol>');
-		} else if(now < prev) {
-			lv(prev, now, '</ol>');
+	for (i = 0; i < h.length; i++) {
+		h[i].id = 'anc' + ('0' + (i + 1)).slice(-2);
+
+		var now = h[i].tagName[1];
+
+		if(i - 1 < 0) {
+			var prev = h[i].tagName[1];
+		} else {
+			var prev = h[i - 1].tagName[1];
 		}
-		o += '\n<li><a href="#' + this.id + '">' + this.innerHTML + '</a></li>';
-	});
-	o += '\n</ol>';
 
-	$('.js-toc').html(o);
-});
+		if (now > prev) {
+			lv(now, prev, '<ol>\n')
+		} else if (now < prev) {
+			lv(prev, now, '</ol>\n')
+		}
+		o += '<li><a href="#' + h[i].id + '">' + h[i].innerHTML + "</a></li>\n";
+	}
+
+	o += '</ol>\n';
+	nav.innerHTML = o;
+
+}

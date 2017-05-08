@@ -9,6 +9,74 @@
     <atom:link href="https://r-am.github.io/tags/js.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>jQuery無しで目次を作る</title>
+      <link>https://r-am.github.io/post/bye-jquery-toc.html</link>
+      <pubDate>Mon, 08 May 2017 19:21:09 +0900</pubDate>
+      
+      <guid>https://r-am.github.io/post/bye-jquery-toc.html</guid>
+      <description>
+
+&lt;p&gt;目次のためだけにjQuery呼び出すのはなんか違うと思ったので、&lt;a href=&#34;https://r-am.github.io/post/jquery-toc.html&#34;&gt;前に作ったやつ&lt;/a&gt;をjQuery無しで動くようにした。&lt;/p&gt;
+
+&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;toc.js&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;window.onload = function() {
+
+	function lv(a, b, c) {
+		var d = a - b;
+		for (e = 0; e &amp;lt; d; e++) {
+			o += c;
+		};
+		return o;
+	}
+
+	var ec = document.getElementsByClassName(&#39;entry-content&#39;)[0],
+		h = ec.querySelectorAll(&#39;h1, h2, h3, h4, h5, h6&#39;),
+		o = &#39;&amp;lt;ol&amp;gt;\n&#39;,
+		nav = document.createElement(&#39;nav&#39;);
+
+	nav.className = &#39;toc&#39;;
+	ec.insertBefore(nav, ec.firstChild);
+
+	for (i = 0; i &amp;lt; h.length; i++) {
+		h[i].id = &#39;anc&#39; + (&#39;0&#39; + (i + 1)).slice(-2);
+
+		var now = h[i].tagName[1];
+
+		if(i - 1 &amp;lt; 0) {
+			var prev = h[i].tagName[1];
+		} else {
+			var prev = h[i - 1].tagName[1];
+		}
+
+		if (now &amp;gt; prev) {
+			lv(now, prev, &#39;&amp;lt;ol&amp;gt;\n&#39;)
+		} else if (now &amp;lt; prev) {
+			lv(prev, now, &#39;&amp;lt;/ol&amp;gt;\n&#39;)
+		}
+		o += &#39;&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&#39; + h[i].id + &#39;&amp;quot;&amp;gt;&#39; + h[i].innerHTML + &amp;quot;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;\n&amp;quot;;
+	}
+
+	o += &#39;&amp;lt;/ol&amp;gt;\n&#39;;
+	nav.innerHTML = o;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;検索したら、目次なら&lt;code&gt;document.createTreeWalker()&lt;/code&gt;使うといいよって書いてあったけど、使い方がいまいちよく分からなかったので&lt;code&gt;querySelectorAll()&lt;/code&gt;と&lt;code&gt;for()&lt;/code&gt;を使って凌いだ。ノードのツリーを歩いた後にどうやって最初のノードに戻るんだろう。歩いた分戻るのに毎回&lt;code&gt;while&lt;/code&gt;使うんだろうか。&lt;/p&gt;
+
+&lt;p&gt;jQueryは凄い便利だし取っつきやすいんだけど、なるべくjQuery使わないで書けるようになりたいなぁ。&lt;/p&gt;
+
+&lt;h3 id=&#34;jsfiddle&#34;&gt;JSFiddle&lt;/h3&gt;
+
+&lt;script async src=&#34;http://jsfiddle.net/R_AM/pbdwdk3p/embed/js,html,result/&#34;&gt;&lt;/script&gt;
+</description>
+    </item>
+    
+    <item>
       <title>jQueryで目次を作る</title>
       <link>https://r-am.github.io/post/jquery-toc.html</link>
       <pubDate>Fri, 28 Apr 2017 17:15:29 +0900</pubDate>

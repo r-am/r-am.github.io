@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQuery無しで目次を作る - R-AM</title>
+	<meta name="description" content="めもちょう">
+	<meta name="keywords" content="html, css, javascript, r-am">
+	<link rel="stylesheet" href="/css/html5reset-1.6.1.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="stylesheet" href="/css/highlight.min.css">
+	<script src="/js/prism.js"></script>
+	<link rel="canonical" href="https://r-am.github.io/post/bye-jquery-toc.html">
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1 class="site-title"><a href="/">R-AM</a></h1>
+			<ul class="site-nav">
+				<li><a href="/page/about.html">About</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</header>
+		<main>
+			<article>
+				<header class="entry-header">
+					<h2 class="entry-title">jQuery無しで目次を作る</h2>
+					<ul class="entry-data">
+						<li class="entry-date"><time datetime="2017-05-08">2017/05/08</time></li>
+						<li class="entry-tag"><a href="/tags/js.html">js</a></li>
+					</ul>
+				</header>
+				<div class="entry-content">
+					<p>目次のためだけにjQuery呼び出すのはなんか違うと思ったので、<a href="/post/jquery-toc.html">前に作ったやつ</a>をjQuery無しで動くようにした。</p>
+					<figure class="code">
+						<figcaption>toc.js</figcaption>
+						<pre><code class="language-javascript">window.onload = function() {
+
+	function lv(a, b, c) {
+		var d = a - b;
+		for (e = 0; e &lt; d; e++) {
+			o += c;
+		};
+		return o;
+	}
+
+	var ec = document.getElementsByClassName('entry-content')[0],
+		h = ec.querySelectorAll('h1, h2, h3, h4, h5, h6'),
+		o = '&lt;ol&gt;\n',
+		nav = document.createElement('nav');
+
+	nav.className = 'toc';
+	ec.insertBefore(nav, ec.firstChild);
+
+	for (i = 0; i &lt; h.length; i++) {
+		h[i].id = 'anc' + ('0' + (i + 1)).slice(-2);
+
+		var now = h[i].tagName[1];
+
+		if(i - 1 &lt; 0) {
+			var prev = h[i].tagName[1];
+		} else {
+			var prev = h[i - 1].tagName[1];
+		}
+
+		if (now &gt; prev) {
+			lv(now, prev, '&lt;ol&gt;\n')
+		} else if (now &lt; prev) {
+			lv(prev, now, '&lt;/ol&gt;\n')
+		}
+		o += '&lt;li&gt;&lt;a href=&quot;#' + h[i].id + '&quot;&gt;' + h[i].innerHTML + &quot;&lt;/a&gt;&lt;/li&gt;\n&quot;;
+	}
+
+	o += '&lt;/ol&gt;\n';
+	nav.innerHTML = o;
+
+}
+</code></pre>
+					</figure>
+					<p>検索したら、目次なら<code>document.createTreeWalker()</code>使うといいよって書いてあったけど、使い方がいまいちよく分からなかったので<code>querySelectorAll()</code>と<code>for()</code>を使って凌いだ。ノードのツリーを歩いた後にどうやって最初のノードに戻るんだろう。歩いた分戻るのに毎回<code>while</code>使うんだろうか。</p>
+					<p>jQueryは凄い便利だし取っつきやすいんだけど、なるべくjQuery使わないで書けるようになりたいなぁ。</p>
+					<h3 id="jsfiddle">JSFiddle</h3>
+					<script async src="http://jsfiddle.net/R_AM/pbdwdk3p/embed/js,html,result/"></script>
+				</div>
+			</article>
+			<nav class="entry-nav">
+				<ul>
+					<li class="next none"><span>次の記事</span>-</li>
+					<li class="prev"><a href="/post/hugo-shortcode-bug.html"><span>前の記事</span>Shortcodeのバグ</a></li>
+				</ul>
+			</nav>
+		</main>
+		<footer>
+			<p class="copyright">&copy; R-AM</p>
+		</footer>
+	</div>
+</body>
+</html>
