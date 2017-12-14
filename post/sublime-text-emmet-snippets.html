@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>HTMLをそのままスニペットに登録 - R-AM</title>
+	<meta name="description" content="めもちょう">
+	<meta name="keywords" content="html, css, javascript, r-am">
+	<link rel="stylesheet" href="/css/html5reset-1.6.1.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="stylesheet" href="/css/highlight.min.css">
+	<script src="/js/prism.js"></script>
+	<link rel="canonical" href="https://r-am.github.io/post/sublime-text-emmet-snippets.html">
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1 class="site-title"><a href="/">R-AM</a></h1>
+			<ul class="site-nav">
+				<li><a href="/page/about.html">About</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</header>
+		<main>
+			<article>
+				<header class="entry-header">
+					<h2 class="entry-title">HTMLをそのままスニペットに登録</h2>
+					<ul class="entry-data">
+						<li class="entry-date"><time datetime="2017-12-14">2017/12/14</time></li>
+						<li class="entry-tag"><a href="/tags/sublimetext.html">sublimetext</a></li>
+					</ul>
+				</header>
+				<div class="entry-content">
+					<p>Emmetのスニペット機能を使ってHTMLをそのまま登録しておけば、元の改行を崩さなくていいし予想外の指示があってもHTMLを直でいじれるのでとても便利。ただ、HTMLをそのまま登録する場合は改行を<code>\n</code>にしたりクォートをエスケープしたりと手作業だととても面倒臭い。楽に登録出来る方法無いかなと探していたら<a href="http://facelessuser.github.io/RegReplace/" target="_blank">RegReplace</a>というSublimeText3のパッケージがあったのでこれを使っている。その名の通り正規表現で置換してくれるもの。</p>
+					<figure class="code">
+						<figcaption>置換前 hoge.html</figcaption>
+						<pre><code class="language-html">&lt;section&gt;
+  &lt;div class=&quot;heading&quot;&gt;
+    &lt;a class=&quot;block&quot; href=&quot;#&quot;&gt;
+      &lt;h2 class=&quot;title&quot;&gt;H2-Title&lt;/h2&gt;
+      &lt;p class=&quot;sub_title&quot;&gt;SubTitle&lt;/p&gt;
+    &lt;/a&gt;
+    &lt;p&gt;Paragraph&lt;/p&gt;
+  &lt;!-- ./heading --&gt;&lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+					</figure>
+					<figure class="code">
+						<figcaption>置換後 hoge.html</figcaption>
+						<pre><code class="language-html">&lt;section&gt;\n\t&lt;div class=\&quot;heading\&quot;&gt;\n\t\t&lt;a class=\&quot;block\&quot; href=\&quot;#\&quot;&gt;\n\t\t\t&lt;h2 class=\&quot;title\&quot;&gt;H2-Title&lt;/h2&gt;\n\t\t\t&lt;p class=\&quot;sub_title\&quot;&gt;SubTitle&lt;/p&gt;\n\t\t&lt;/a&gt;\n\t\t&lt;p&gt;Paragraph&lt;/p&gt;\n\t&lt;!-- ./heading --&gt;&lt;/div&gt;\n&lt;/section&gt;
+</code></pre>
+					</figure>
+					<p>コマンド実行すれば置換前のコードが置換後のようになる。</p>
+					<p>記事とは関係無いが、メモ帳時代の名残である閉じタグ前のインラインコメントはいつになったら無くなるのか…。こいつのせいでPugの出番がなかなかない。</p>
+					<h3 id="設定">設定</h3>
+					<p><code>基本設定 &gt; Package Settings &gt; RegReplace &gt; Rules-User</code></p>
+					<figure class="code">
+						<figcaption>reg_replace_rules.sublime-settings</figcaption>
+						<pre><code class="language-json">{
+    &quot;replacements&quot;: {
+        &quot;replace_1&quot;: { &quot;find&quot;: &quot;\&quot;&quot;, &quot;replace&quot;: &quot;\\\&quot;&quot; }, // &quot; → \&quot;
+        &quot;replace_2&quot;: { &quot;find&quot;: &quot;\n&quot;, &quot;replace&quot;: &quot;\\\\n&quot; }, // 改行 → \n
+        &quot;replace_3&quot;: { &quot;find&quot;: &quot; {2}&quot;, &quot;replace&quot;: &quot;\\\\t&quot; } // 半角スペース2つ → \t
+    }
+}
+</code></pre>
+					</figure>
+					<p><code>基本設定 &gt; Package Settings &gt; RegReplace &gt; Commands-User</code></p>
+					<figure class="code">
+						<figcaption>Default.sublime-commands</figcaption>
+						<pre><code class="language-json">[
+    {
+        &quot;caption&quot;: &quot;RegReplace: HTML→Emmet&quot;,
+        &quot;command&quot;: &quot;reg_replace&quot;,
+        &quot;args&quot;: {
+            &quot;replacements&quot;: [
+                &quot;replace_1&quot;,
+                &quot;replace_2&quot;,
+                &quot;replace_3&quot;
+            ]
+        }
+    }
+]
+</code></pre>
+					</figure>
+					<hr />
+					<p><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>でコマンドパレットを呼び出し、<code>reh</code>と打てば「RegReplace: HTML→Emmet」が出てくるので実行。置換後のコードをパーツ名等で登録。</p>
+				</div>
+			</article>
+			<nav class="entry-nav">
+				<ul>
+					<li class="next none"><span>次の記事</span>-</li>
+					<li class="prev"><a href="/post/bye-jquery-toc.html"><span>前の記事</span>jQuery無しで目次を作る</a></li>
+				</ul>
+			</nav>
+		</main>
+		<footer>
+			<p class="copyright">&copy; R-AM</p>
+		</footer>
+	</div>
+</body>
+</html>

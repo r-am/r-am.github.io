@@ -9,6 +9,90 @@
     <atom:link href="https://r-am.github.io/tags/sublimetext.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>HTMLをそのままスニペットに登録</title>
+      <link>https://r-am.github.io/post/sublime-text-emmet-snippets.html</link>
+      <pubDate>Thu, 14 Dec 2017 10:05:09 +0900</pubDate>
+      
+      <guid>https://r-am.github.io/post/sublime-text-emmet-snippets.html</guid>
+      <description>
+
+&lt;p&gt;Emmetのスニペット機能を使ってHTMLをそのまま登録しておけば、元の改行を崩さなくていいし予想外の指示があってもHTMLを直でいじれるのでとても便利。ただ、HTMLをそのまま登録する場合は改行を&lt;code&gt;\n&lt;/code&gt;にしたりクォートをエスケープしたりと手作業だととても面倒臭い。楽に登録出来る方法無いかなと探していたら&lt;a href=&#34;http://facelessuser.github.io/RegReplace/&#34; target=&#34;_blank&#34;&gt;RegReplace&lt;/a&gt;というSublimeText3のパッケージがあったのでこれを使っている。その名の通り正規表現で置換してくれるもの。&lt;/p&gt;
+
+&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;置換前 hoge.html&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;section&amp;gt;
+  &amp;lt;div class=&amp;quot;heading&amp;quot;&amp;gt;
+    &amp;lt;a class=&amp;quot;block&amp;quot; href=&amp;quot;#&amp;quot;&amp;gt;
+      &amp;lt;h2 class=&amp;quot;title&amp;quot;&amp;gt;H2-Title&amp;lt;/h2&amp;gt;
+      &amp;lt;p class=&amp;quot;sub_title&amp;quot;&amp;gt;SubTitle&amp;lt;/p&amp;gt;
+    &amp;lt;/a&amp;gt;
+    &amp;lt;p&amp;gt;Paragraph&amp;lt;/p&amp;gt;
+  &amp;lt;!-- ./heading --&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/section&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;
+
+&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;置換後 hoge.html&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;section&amp;gt;\n\t&amp;lt;div class=\&amp;quot;heading\&amp;quot;&amp;gt;\n\t\t&amp;lt;a class=\&amp;quot;block\&amp;quot; href=\&amp;quot;#\&amp;quot;&amp;gt;\n\t\t\t&amp;lt;h2 class=\&amp;quot;title\&amp;quot;&amp;gt;H2-Title&amp;lt;/h2&amp;gt;\n\t\t\t&amp;lt;p class=\&amp;quot;sub_title\&amp;quot;&amp;gt;SubTitle&amp;lt;/p&amp;gt;\n\t\t&amp;lt;/a&amp;gt;\n\t\t&amp;lt;p&amp;gt;Paragraph&amp;lt;/p&amp;gt;\n\t&amp;lt;!-- ./heading --&amp;gt;&amp;lt;/div&amp;gt;\n&amp;lt;/section&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;コマンド実行すれば置換前のコードが置換後のようになる。&lt;/p&gt;
+
+&lt;p&gt;記事とは関係無いが、メモ帳時代の名残である閉じタグ前のインラインコメントはいつになったら無くなるのか…。こいつのせいでPugの出番がなかなかない。&lt;/p&gt;
+
+&lt;h3 id=&#34;設定&#34;&gt;設定&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;基本設定 &amp;gt; Package Settings &amp;gt; RegReplace &amp;gt; Rules-User&lt;/code&gt;&lt;/p&gt;
+
+&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;reg_replace_rules.sublime-settings&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;replacements&amp;quot;: {
+        &amp;quot;replace_1&amp;quot;: { &amp;quot;find&amp;quot;: &amp;quot;\&amp;quot;&amp;quot;, &amp;quot;replace&amp;quot;: &amp;quot;\\\&amp;quot;&amp;quot; }, // &amp;quot; → \&amp;quot;
+        &amp;quot;replace_2&amp;quot;: { &amp;quot;find&amp;quot;: &amp;quot;\n&amp;quot;, &amp;quot;replace&amp;quot;: &amp;quot;\\\\n&amp;quot; }, // 改行 → \n
+        &amp;quot;replace_3&amp;quot;: { &amp;quot;find&amp;quot;: &amp;quot; {2}&amp;quot;, &amp;quot;replace&amp;quot;: &amp;quot;\\\\t&amp;quot; } // 半角スペース2つ → \t
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;code&gt;基本設定 &amp;gt; Package Settings &amp;gt; RegReplace &amp;gt; Commands-User&lt;/code&gt;&lt;/p&gt;
+
+&lt;figure class=&#34;code&#34;&gt;
+&lt;figcaption&gt;Default.sublime-commands&lt;/figcaption&gt;
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;[
+    {
+        &amp;quot;caption&amp;quot;: &amp;quot;RegReplace: HTML→Emmet&amp;quot;,
+        &amp;quot;command&amp;quot;: &amp;quot;reg_replace&amp;quot;,
+        &amp;quot;args&amp;quot;: {
+            &amp;quot;replacements&amp;quot;: [
+                &amp;quot;replace_1&amp;quot;,
+                &amp;quot;replace_2&amp;quot;,
+                &amp;quot;replace_3&amp;quot;
+            ]
+        }
+    }
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+
+&lt;/figure&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;P&lt;/kbd&gt;でコマンドパレットを呼び出し、&lt;code&gt;reh&lt;/code&gt;と打てば「RegReplace: HTML→Emmet」が出てくるので実行。置換後のコードをパーツ名等で登録。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>SublimeText3で.pugと.scssをビルド</title>
       <link>https://r-am.github.io/post/sublime-text-build-pug-scss.html</link>
       <pubDate>Tue, 02 May 2017 05:44:04 +0900</pubDate>
